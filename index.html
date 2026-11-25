@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>দৈনিক আমল ও মোনাজাত</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #146c53;
+      --primary-dark: #0d4d3b;
+      --primary-light: #e7f4ef;
+      --accent: #c89d2c;
+      --accent-light: #fdf8ea;
+      --bg: #f4f7f6;
+      --card: #ffffff;
+      --text: #1b2a24;
+      --muted: #5d6e67;
+      --border: #dce5e1;
+      --danger: #c93b3b;
+      --danger-light: #fdecec;
+      --shadow: 0 4px 14px rgba(13, 77, 59, 0.07);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Hind Siliguri', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding-bottom: 90px;
+    }
+
+    /* Header & Top Nav */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 14px 16px 12px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 720px;
+      margin: 0 auto 10px;
+      gap: 8px;
+    }
+
+    .app-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .date-badge {
+      font-size: 0.76rem;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .sync-btn {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .sync-btn:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .sync-spin {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Sound & Vibrate Quick Bar in Header */
+    .header-prefs-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      max-width: 720px;
+      margin: 0 auto 10px;
+    }
+
+    .pref-toggle-btn {
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 255, 255, 0.75);
+      border-radius: 99px;
+      padding: 4px 11px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .pref-toggle-btn.on {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary-dark);
+      border-color: #ffffff;
+    }
+
+    /* Main Section Switcher */
+    .main-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.18);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .main-tab-btn {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .main-tab-btn.active {
+      background: #ffffff;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Container */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Section Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-heading {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--primary-dark);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 11px;
+      padding: 9px 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.1s, opacity 0.2s, background 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: var(--card);
+      color: var(--primary-dark);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-danger-soft {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      border-radius: 8px;
+    }
+
+    /* Category Grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .category-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .category-card:hover {
+      border-color: var(--primary);
+    }
+
+    .cat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cat-name {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+
+    .cat-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-pill {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+
+    .progress-pill.done {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .cat-delete-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      background: var(--danger-light);
+      color: var(--danger);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Category Detail Header */
+    .detail-header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: none;
+      border-radius: 10px;
+      padding: 7px 12px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .cat-id-tag {
+      font-size: 0.76rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .detail-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .start-amal-btn {
+      flex: 1;
+      min-width: 180px;
+      padding: 12px 16px;
+      font-size: 1.02rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(20, 108, 83, 0.25);
+    }
+
+    /* Dua & Munajat Cards */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px 16px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .item-card.completed-card {
+      border-color: #86efac;
+      background: #f9fefb;
+    }
+
+    .item-card.dragging {
+      opacity: 0.55;
+      border: 2px dashed var(--primary);
+    }
+
+    .item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .item-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .item-title {
+      font-size: 1.04rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .count-badge {
+      background: var(--accent-light);
+      color: #8a6608;
+      border: 1px solid #edd99b;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .count-badge.done {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #bbf7d0;
+    }
+
+    .arabic-text {
+      font-family: 'Amiri', serif;
+      font-size: 1.65rem;
+      line-height: 2.05;
+      text-align: right;
+      direction: rtl;
+      color: #0d2b20;
+      background: #f8fbf9;
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin: 8px 0;
+      border-right: 3px solid var(--primary);
+    }
+
+    .pronunciation-text {
+      font-size: 0.96rem;
+      color: #2c3e37;
+      margin: 6px 0;
+    }
+
+    .meaning-box {
+      font-size: 0.92rem;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 9px 12px;
+      border-radius: 10px;
+      margin-top: 8px;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* Reorder Controls */
+    .reorder-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .drag-handle {
+      cursor: grab;
+      padding: 4px 8px;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      user-select: none;
+    }
+
+    /* Munajat Filter Pills */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .filter-pill {
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 99px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .source-tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .source-Quran { background: #e0f2fe; color: #0369a1; }
+    .source-Hadith { background: #fef3c7; color: #92400e; }
+    .source-Personal { background: #f3e8ff; color: #6b21a8; }
+
+    .meaning-toggle-btn {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid #cbe4da;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ================= TASBIH FOCUS OVERLAY ================= */
+    .tasbih-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tasbih-topbar {
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tasbih-step-info {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .pause-btn {
+      background: #f59e0b;
+      color: #1f1600;
+      border: none;
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Tasbih Sub-bar for Beep & Vibrate Toggles */
+    .tasbih-toggles-bar {
+      background: #e9f2ee;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .tasbih-pref-pill {
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      color: var(--muted);
+      border-radius: 99px;
+      padding: 5px 13px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .tasbih-pref-pill.on {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .tasbih-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px 175px;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .active-dua-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #e2eae6;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #22a07b);
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    .tasbih-nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      gap: 10px;
+    }
+
+    /* Bottom-Center Tasbih Counter Dock */
+    .tasbih-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(244, 247, 246, 0.98) 78%, rgba(244, 247, 246, 0));
+      padding: 10px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 110;
+      pointer-events: none;
+    }
+
+    .tasbih-btn {
+      pointer-events: auto;
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      border: 5px solid #ffffff;
+      background: radial-gradient(circle at 30% 30%, #1d8a6b, var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 10px 26px rgba(13, 77, 59, 0.38), inset 0 2px 6px rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: transform 0.08s ease, box-shadow 0.12s ease;
+    }
+
+    .tasbih-btn:active {
+      transform: scale(0.93);
+      box-shadow: 0 4px 14px rgba(13, 77, 59, 0.35);
+    }
+
+    .tasbih-count-display {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .tasbih-sub-label {
+      font-size: 0.78rem;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 74px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1b2a24;
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 99px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      z-index: 200;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* Empty / Loading States */
+    .state-box {
+      text-align: center;
+      padding: 36px 20px;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1.5px dashed var(--border);
+      color: var(--muted);
+    }
+
+    /* Modal for Adding Category */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-card h3 {
+      margin: 0 0 12px;
+      color: var(--primary-dark);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div>
+        <h1 class="app-title">🕌 দৈনিক আমল ও মোনাজাত</h1>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span class="date-badge" id="todayDateLabel"></span>
+        <button class="sync-btn" onclick="fetchAllData(true)" title="গুগল শিট থেকে নতুন ডাটা আনুন">
+          <span id="syncIcon">↻</span> সিঙ্ক
+        </button>
+      </div>
+    </div>
+
+    <!-- Beep & Vibrate On/Off Toggles -->
+    <div class="header-prefs-row">
+      <button class="pref-toggle-btn on" id="headerBeepToggle" onclick="toggleBeepSetting()">🔊 বিপ: অন</button>
+      <button class="pref-toggle-btn on" id="headerVibrateToggle" onclick="toggleVibrateSetting()">📳 ভাইব্রেট: অন</button>
+    </div>
+
+    <div class="main-tabs">
+      <button class="main-tab-btn active" id="tabAmalBtn" onclick="switchMainSection('amal')">📿 দৈনিক আমল</button>
+      <button class="main-tab-btn" id="tabMunajatBtn" onclick="switchMainSection('munajat')">🤲 মোনাজাত</button>
+    </div>
+  </header>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- ==================== SECTION 1: DAILY AMAL ==================== -->
+    <section id="amalSection">
+      <!-- View A: Category Buttons List -->
+      <div id="categoryListView">
+        <div class="toolbar">
+          <h2 class="section-heading">আমলের সময় ও বিভাগসমূহ</h2>
+          <button class="btn btn-primary" onclick="openAddCategoryModal()">+ নতুন বাটন যোগ করুন</button>
+        </div>
+        <div id="categoryGrid" class="category-grid"></div>
+      </div>
+
+      <!-- View B: Single Category Dua List -->
+      <div id="categoryDetailView" class="hidden">
+        <div class="detail-header">
+          <div class="detail-top-row">
+            <button class="back-btn" onclick="backToCategories()">← সব আমল</button>
+            <span class="cat-id-tag" id="detailCatIdTag" onclick="copyCategoryId()" title="শিটে ব্যবহারের জন্য আইডি কপি করুন"></span>
+          </div>
+          <h2 class="section-heading" id="detailCategoryTitle" style="font-size:1.25rem;"></h2>
+          <div id="detailSummaryText" style="font-size:0.88rem; color:var(--muted); margin-top:3px;"></div>
+
+          <div class="detail-actions">
+            <button class="btn start-amal-btn" id="startAmalBtn" onclick="startTasbihSession()">▶ আমল শুরু করুন</button>
+            <button class="btn btn-outline" id="toggleAmalReorderBtn" onclick="toggleAmalReorder()">⇅ দোয়া সাজান</button>
+            <button class="btn btn-danger-soft btn-sm" id="resetTodayBtn" onclick="resetTodayCategoryProgress()" title="আজকের কাউন্ট রিসেট করুন">↺ রিসেট</button>
+          </div>
+
+          <!-- Reorder Action Bar -->
+          <div id="amalReorderBar" class="hidden" style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="shuffleCurrentAmals()">🔀 এলোমেলো করুন</button>
+            <button class="btn btn-accent btn-sm" onclick="saveAmalOrderToSheet()">💾 ক্রম সেভ করুন</button>
+          </div>
+        </div>
+
+        <div id="amalDuaList" class="card-list"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: MUNAJAT ==================== -->
+    <section id="munajatSection" class="hidden">
+      <div class="toolbar">
+        <h2 class="section-heading">মোনাজাত সমূহ</h2>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline btn-sm" id="toggleMunajatReorderBtn" onclick="toggleMunajatReorder()">⇅ সাজান</button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-pill active" data-filter="ALL" onclick="setMunajatFilter('ALL', this)">সব মোনাজাত</button>
+        <button class="filter-pill" data-filter="Quran" onclick="setMunajatFilter('Quran', this)">কোরআন থেকে</button>
+        <button class="filter-pill" data-filter="Hadith" onclick="setMunajatFilter('Hadith', this)">হাদিস থেকে</button>
+        <button class="filter-pill" data-filter="Personal" onclick="setMunajatFilter('Personal', this)">নিজের লেখা</button>
+      </div>
+
+      <!-- Reorder Action Bar for Munajat -->
+      <div id="munajatReorderBar" class="hidden" style="margin-bottom:12px; background:var(--card); padding:10px 12px; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+        <span style="font-size:0.84rem; color:var(--muted);">সব মোনাজাতের ক্রম পরিবর্তন করুন:</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline btn-sm" onclick="shuffleMunajats()">🔀 এলোমেলো</button>
+          <button class="btn btn-accent btn-sm" onclick="saveMunajatOrderToSheet()">💾 ক্রম সেভ করুন</button>
+        </div>
+      </div>
+
+      <div id="munajatList" class="card-list"></div>
+    </section>
+
+  </main>
+
+  <!-- ==================== TASBIH COUNTER FOCUS MODE ==================== -->
+  <div id="tasbihOverlay" class="tasbih-overlay hidden">
+    <div class="tasbih-topbar">
+      <div>
+        <div id="tasbihCatName" style="font-size:0.78rem; opacity:0.85;"></div>
+        <div class="tasbih-step-info" id="tasbihStepInfo">দোয়া ১ / ১</div>
+      </div>
+      <button class="pause-btn" onclick="pauseAndExitTasbih()">⏸ পজ ও সংরক্ষণ</button>
+    </div>
+
+    <!-- Quick Beep & Vibrate Toggle Bar inside Tasbih Mode -->
+    <div class="tasbih-toggles-bar">
+      <button class="tasbih-pref-pill on" id="tasbihBeepToggle" onclick="toggleBeepSetting()">🔊 বিপ: অন</button>
+      <button class="tasbih-pref-pill on" id="tasbihVibrateToggle" onclick="toggleVibrateSetting()">📳 ভাইব্রেট: অন</button>
+    </div>
+
+    <div class="tasbih-body">
+      <div id="activeDuaContainer" class="active-dua-card"></div>
+
+      <div class="tasbih-nav-row">
+        <button class="btn btn-outline btn-sm" id="prevDuaBtn" onclick="navigateTasbihDua(-1)">← আগের দোয়া</button>
+        <span id="tasbihSyncStatus" style="font-size:0.78rem; color:var(--muted);">অটো-সেভ চালু আছে</span>
+        <button class="btn btn-outline btn-sm" id="nextDuaBtn" onclick="navigateTasbihDua(1)">পরের দোয়া →</button>
+      </div>
+    </div>
+
+    <!-- Bottom-Center Tasbih Counter -->
+    <div class="tasbih-dock">
+      <button class="tasbih-btn" id="tasbihTapBtn" onclick="handleTasbihTap()">
+        <span class="tasbih-count-display" id="tasbihCounterText">০ / ০</span>
+        <span class="tasbih-sub-label">তসবি গুনুন</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Category Modal -->
+  <div id="addCategoryModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <h3>নতুন আমল বাটন যোগ করুন</h3>
+      <input type="text" id="newCategoryNameInput" class="input-field" placeholder="যেমন: রাতের আমল বা ফজরের পর" />
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeAddCategoryModal()">বাতিল</button>
+        <button class="btn btn-primary" id="saveNewCatBtn" onclick="submitNewCategory()">যোগ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // আপনার Google Apps Script Web App URL
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwhJx_Jkq1GPvG8Ijvk7KWWRuC5VlOyAqyzvqUNjARVikFpLhv0tt1I1J8Wz3_I7wm7/exec';
+
+    const STORAGE_CACHE_KEY = 'amal_munajat_cache_v1';
+    const STORAGE_PROGRESS_KEY = 'amal_daily_progress_v1';
+    const STORAGE_PREFS_KEY = 'amal_sound_vibrate_prefs_v1';
+
+    // অ্যাপের মূল স্টেট
+    let state = {
+      categories: [],
+      dailyAmal: [],
+      munajat: [],
+      todayProgress: {}, // key: `${Category_ID}__${Amal_ID}` -> count (number)
+      prefs: {
+        beep: true,
+        vibrate: true
+      },
+      activeSection: 'amal',
+      selectedCategoryId: null,
+      amalReorderMode: false,
+      munajatFilter: 'ALL',
+      munajatReorderMode: false,
+      activeTasbihIndex: 0
+    };
+
+    let saveDebounceTimer = null;
+    let pendingSyncRecords = {}; // key -> record object
+    let audioCtx = null;
+
+    /* ==================== বিপ সাউন্ড ও ভাইব্রেশন সিস্টেম ==================== */
+
+    function unlockAudioContext() {
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioCtx) {
+          audioCtx = new AudioContextClass();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {
+        console.warn('AudioContext init warning:', e);
+      }
+    }
+
+    function playTone(freq, startTime, duration, volume = 0.25) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, startTime);
+
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.02);
+    }
+
+    /**
+     * type:
+     * - 'complete': একটি দোয়ার নির্ধারিত সংখ্যা পূর্ণ হলে ডাবল বিপ
+     * - 'all_complete': পুরো আমল বিভাগ শেষ হলে আনন্দদায়ক ৩-নোট বিপ
+     * - 'test': বিপ অন করার সময় ছোট সিঙ্গেল বিপ
+     */
+    function playBeepSound(type = 'complete') {
+      if (!state.prefs.beep) return;
+      unlockAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      if (type === 'test') {
+        playTone(880, now, 0.13, 0.22);
+      } else if (type === 'complete') {
+        // একটি দোয়া শেষ হওয়ার স্পষ্ট ডাবল বিপ
+        playTone(880, now, 0.14, 0.28);
+        playTone(1174.66, now + 0.16, 0.22, 0.30);
+      } else if (type === 'all_complete') {
+        // সব আমল শেষ হওয়ার বিপ
+        playTone(784.00, now, 0.13, 0.26);
+        playTone(987.77, now + 0.15, 0.13, 0.28);
+        playTone(1318.51, now + 0.30, 0.28, 0.32);
+      }
+    }
+
+    /**
+     * type:
+     * - 'tap': প্রতিবার তসবি চাপায় হালকা ভাইব্রেশন
+     * - 'complete': একটি দোয়া শেষ হলে স্পষ্ট ডাবল ভাইব্রেশন
+     * - 'all_complete': সব দোয়া শেষ হলে দীর্ঘ ভাইব্রেশন
+     */
+    function triggerVibration(type = 'tap') {
+      if (!state.prefs.vibrate || !navigator.vibrate) return;
+      try {
+        if (type === 'tap') {
+          navigator.vibrate(20);
+        } else if (type === 'complete') {
+          navigator.vibrate([130, 80, 180]);
+        } else if (type === 'all_complete') {
+          navigator.vibrate([120, 70, 120, 70, 260]);
+        }
+      } catch (e) {}
+    }
+
+    function loadPrefs() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_PREFS_KEY) || 'null');
+        if (saved && typeof saved === 'object') {
+          state.prefs.beep = saved.beep !== false;
+          state.prefs.vibrate = saved.vibrate !== false;
+        }
+      } catch (e) {}
+      updatePrefsUI();
+    }
+
+    function savePrefs() {
+      localStorage.setItem(STORAGE_PREFS_KEY, JSON.stringify(state.prefs));
+      updatePrefsUI();
+    }
+
+    function updatePrefsUI() {
+      const beepOn = state.prefs.beep;
+      const vibOn = state.prefs.vibrate;
+
+      const headerBeep = document.getElementById('headerBeepToggle');
+      const tasbihBeep = document.getElementById('tasbihBeepToggle');
+      [headerBeep, tasbihBeep].forEach(btn => {
+        if (!btn) return;
+        btn.classList.toggle('on', beepOn);
+        btn.textContent = beepOn ? '🔊 বিপ: অন' : '🔇 বিপ: অফ';
+      });
+
+      const headerVib = document.getElementById('headerVibrateToggle');
+      const tasbihVib = document.getElementById('tasbihVibrateToggle');
+      [headerVib, tasbihVib].forEach(btn => {
+        if (!btn) return;
+        btn.classList.toggle('on', vibOn);
+        btn.textContent = vibOn ? '📳 ভাইব্রেট: অন' : '📴 ভাইব্রেট: অফ';
+      });
+    }
+
+    function toggleBeepSetting() {
+      state.prefs.beep = !state.prefs.beep;
+      savePrefs();
+      if (state.prefs.beep) {
+        playBeepSound('test');
+        showToast('বিপ সাউন্ড চালু করা হয়েছে');
+      } else {
+        showToast('বিপ সাউন্ড বন্ধ করা হয়েছে');
+      }
+    }
+
+    function toggleVibrateSetting() {
+      state.prefs.vibrate = !state.prefs.vibrate;
+      savePrefs();
+      if (state.prefs.vibrate) {
+        triggerVibration('complete');
+        showToast('ভাইব্রেশন চালু করা হয়েছে');
+      } else {
+        showToast('ভাইব্রেশন বন্ধ করা হয়েছে');
+      }
+    }
+
+    /* ==================== ইউটিলিটি ফাংশন ==================== */
+
+    function toBnNum(num) {
+      const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return String(num).replace(/\d/g, d => bnDigits[d]);
+    }
+
+    function getTodayDateStr() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ==================== লোকাল স্টোরেজ ও সিঙ্ক ==================== */
+
+    function loadLocalCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(STORAGE_CACHE_KEY) || 'null');
+        if (cached) {
+          state.categories = cached.categories || [];
+          state.dailyAmal = cached.dailyAmal || [];
+          state.munajat = cached.munajat || [];
+        }
+        const savedProg = JSON.parse(localStorage.getItem(STORAGE_PROGRESS_KEY) || '{}');
+        const today = getTodayDateStr();
+        if (savedProg.date === today && savedProg.counts) {
+          state.todayProgress = savedProg.counts;
+        } else {
+          state.todayProgress = {};
+          saveLocalProgress();
+        }
+      } catch (e) {
+        console.error('Cache read error:', e);
+      }
+    }
+
+    function saveLocalCache() {
+      localStorage.setItem(STORAGE_CACHE_KEY, JSON.stringify({
+        categories: state.categories,
+        dailyAmal: state.dailyAmal,
+        munajat: state.munajat
+      }));
+    }
+
+    function saveLocalProgress() {
+      localStorage.setItem(STORAGE_PROGRESS_KEY, JSON.stringify({
+        date: getTodayDateStr(),
+        counts: state.todayProgress
+      }));
+    }
+
+    async function postToGAS(payload, keepalive = false) {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        keepalive: keepalive
+      });
+      return await res.json();
+    }
+
+    async function fetchAllData(showNotification = false) {
+      const icon = document.getElementById('syncIcon');
+      icon.classList.add('sync-spin');
+
+      try {
+        const res = await fetch(`${API_URL}?action=getAllData&t=${Date.now()}`);
+        const json = await res.json();
+
+        if (json.status === 'success' && json.data) {
+          state.categories = (json.data.categories || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+          state.dailyAmal = (json.data.dailyAmal || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+          state.munajat = (json.data.munajat || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+
+          // আজকের তারিখের অগ্রগতি শিট থেকে মার্জ করা (লোকাল ও শিটের মধ্যে যেটি বড় সেটি রাখা)
+          const today = getTodayDateStr();
+          (json.data.progress || []).forEach(row => {
+            if (String(row.Date).trim() === today) {
+              const key = `${row.Category_ID}__${row.Amal_ID}`;
+              const sheetCount = Number(row.Completed_Count || 0);
+              const localCount = Number(state.todayProgress[key] || 0);
+              state.todayProgress[key] = Math.max(sheetCount, localCount);
+            }
+          });
+
+          saveLocalCache();
+          saveLocalProgress();
+          renderAll();
+          if (showNotification) showToast('গুগল শিট থেকে ডাটা আপডেট হয়েছে');
+        } else {
+          showToast('ডাটা লোড করতে সমস্যা হয়েছে');
+        }
+      } catch (err) {
+        console.error(err);
+        if (showNotification) showToast('ইন্টারনেট সংযোগ চেক করুন');
+      } finally {
+        icon.classList.remove('sync-spin');
+      }
+    }
+
+    /* ==================== নেভিগেশন ও রেন্ডারিং ==================== */
+
+    function switchMainSection(section) {
+      state.activeSection = section;
+      document.getElementById('tabAmalBtn').classList.toggle('active', section === 'amal');
+      document.getElementById('tabMunajatBtn').classList.toggle('active', section === 'munajat');
+
+      document.getElementById('amalSection').classList.toggle('hidden', section !== 'amal');
+      document.getElementById('munajatSection').classList.toggle('hidden', section !== 'munajat');
+
+      if (section === 'munajat') {
+        renderMunajats();
+      } else {
+        renderCategories();
+      }
+    }
+
+    function renderAll() {
+      renderCategories();
+      if (state.selectedCategoryId) {
+        renderCategoryDetail();
+      }
+      renderMunajats();
+    }
+
+    /* ==================== ১. দৈনিক আমল সেকশন ==================== */
+
+    function getCategoryAmals(catId) {
+      return state.dailyAmal
+        .filter(a => String(a.Category_ID) === String(catId))
+        .sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+    }
+
+    function renderCategories() {
+      const grid = document.getElementById('categoryGrid');
+      if (!state.categories.length) {
+        grid.innerHTML = `<div class="state-box" style="grid-column:1/-1;">কোনো আমল বিভাগ পাওয়া যায়নি। উপরের <b>+ নতুন বাটন যোগ করুন</b> চাপুন।</div>`;
+        return;
+      }
+
+      grid.innerHTML = state.categories.map(cat => {
+        const amals = getCategoryAmals(cat.Category_ID);
+        const totalDuas = amals.length;
+        let completedDuas = 0;
+
+        amals.forEach(a => {
+          const done = Number(state.todayProgress[`${cat.Category_ID}__${a.Amal_ID}`] || 0);
+          const target = Number(a.Target_Count || 1);
+          if (done >= target) completedDuas++;
+        });
+
+        const isAllDone = totalDuas > 0 && completedDuas === totalDuas;
+        const statusText = totalDuas === 0
+          ? 'দোয়া যুক্ত করা হয়নি'
+          : `${toBnNum(completedDuas)}/${toBnNum(totalDuas)} দোয়া সম্পন্ন`;
+
+        return `
+          <div class="category-card" onclick="openCategoryDetail('${escapeHtml(cat.Category_ID)}')">
+            <div class="cat-info">
+              <h3 class="cat-name">${escapeHtml(cat.Category_Name)}</h3>
+              <div class="cat-meta">
+                <span>মোট দোয়া: ${toBnNum(totalDuas)}টি</span>
+                <span class="progress-pill ${isAllDone ? 'done' : ''}">${isAllDone ? '✓ সম্পন্ন' : statusText}</span>
+              </div>
+            </div>
+            <button class="cat-delete-btn" onclick="event.stopPropagation(); deleteCategory('${escapeHtml(cat.Category_ID)}', '${escapeHtml(cat.Category_Name)}')" title="বাটন ডিলিট করুন">🗑</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openAddCategoryModal() {
+      document.getElementById('newCategoryNameInput').value = '';
+      document.getElementById('addCategoryModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('newCategoryNameInput').focus(), 80);
+    }
+
+    function closeAddCategoryModal() {
+      document.getElementById('addCategoryModal').classList.add('hidden');
+    }
+
+    async function submitNewCategory() {
+      const input = document.getElementById('newCategoryNameInput');
+      const name = input.value.trim();
+      if (!name) {
+        showToast('বাটনের নাম লিখুন');
+        return;
+      }
+
+      const btn = document.getElementById('saveNewCatBtn');
+      btn.disabled = true;
+      btn.textContent = 'যোগ হচ্ছে...';
+
+      try {
+        const res = await postToGAS({ action: 'addCategory', categoryName: name });
+        if (res.status === 'success' && res.category) {
+          state.categories.push(res.category);
+          saveLocalCache();
+          renderCategories();
+          closeAddCategoryModal();
+          showToast(`"${name}" যোগ করা হয়েছে`);
+        } else {
+          showToast(res.message || 'যোগ করা যায়নি');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি, আবার চেষ্টা করুন');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'যোগ করুন';
+      }
+    }
+
+    async function deleteCategory(catId, catName) {
+      if (!confirm(`আপনি কি নিশ্চিতভাবে "${catName}" বাটন এবং এর অধীনের দোয়াগুলো ডিলিট করতে চান?`)) {
+        return;
+      }
+
+      const prevCats = [...state.categories];
+      const prevAmals = [...state.dailyAmal];
+      state.categories = state.categories.filter(c => String(c.Category_ID) !== String(catId));
+      state.dailyAmal = state.dailyAmal.filter(a => String(a.Category_ID) !== String(catId));
+      saveLocalCache();
+      renderCategories();
+      showToast('ডিলিট হচ্ছে...');
+
+      try {
+        const res = await postToGAS({ action: 'deleteCategory', categoryId: catId });
+        if (res.status === 'success') {
+          showToast(`"${catName}" ডিলিট সম্পন্ন`);
+        } else {
+          state.categories = prevCats;
+          state.dailyAmal = prevAmals;
+          saveLocalCache();
+          renderCategories();
+          showToast('ডিলিট করা যায়নি');
+        }
+      } catch (e) {
+        state.categories = prevCats;
+        state.dailyAmal = prevAmals;
+        saveLocalCache();
+        renderCategories();
+        showToast('নেটওয়ার্ক ত্রুটি');
+      }
+    }
+
+    function openCategoryDetail(catId) {
+      state.selectedCategoryId = catId;
+      state.amalReorderMode = false;
+      document.getElementById('amalReorderBar').classList.add('hidden');
+      document.getElementById('toggleAmalReorderBtn').textContent = '⇅ দোয়া সাজান';
+
+      document.getElementById('categoryListView').classList.add('hidden');
+      document.getElementById('categoryDetailView').classList.remove('hidden');
+      renderCategoryDetail();
+    }
+
+    function backToCategories() {
+      state.selectedCategoryId = null;
+      document.getElementById('categoryDetailView').classList.add('hidden');
+      document.getElementById('categoryListView').classList.remove('hidden');
+      renderCategories();
+    }
+
+    function copyCategoryId() {
+      if (!state.selectedCategoryId) return;
+      navigator.clipboard?.writeText(state.selectedCategoryId);
+      showToast(`আইডি কপি হয়েছে: ${state.selectedCategoryId}`);
+    }
+
+    function renderCategoryDetail() {
+      const cat = state.categories.find(c => String(c.Category_ID) === String(state.selectedCategoryId));
+      if (!cat) return backToCategories();
+
+      document.getElementById('detailCategoryTitle').textContent = cat.Category_Name;
+      document.getElementById('detailCatIdTag').textContent = `ID: ${cat.Category_ID} 📋`;
+
+      const amals = getCategoryAmals(cat.Category_ID);
+      const listEl = document.getElementById('amalDuaList');
+      const startBtn = document.getElementById('startAmalBtn');
+
+      if (!amals.length) {
+        document.getElementById('detailSummaryText').textContent = 'এই বিভাগে এখনো কোনো দোয়া যুক্ত করা হয়নি।';
+        startBtn.disabled = true;
+        startBtn.style.opacity = '0.5';
+        listEl.innerHTML = `
+          <div class="state-box">
+            গুগল শিটের <b>Daily_Amal</b> ট্যাবে <code>${escapeHtml(cat.Category_ID)}</code> আইডি দিয়ে দোয়া যুক্ত করুন, তারপর উপরের <b>সিঙ্ক</b> বাটন চাপুন।
+          </div>
+        `;
+        return;
+      }
+
+      startBtn.disabled = false;
+      startBtn.style.opacity = '1';
+
+      let totalDoneCount = 0;
+      let totalTargetCount = 0;
+      let hasStartedAny = false;
+
+      amals.forEach(a => {
+        const target = Number(a.Target_Count || 1);
+        const done = Math.min(target, Number(state.todayProgress[`${cat.Category_ID}__${a.Amal_ID}`] || 0));
+        totalDoneCount += done;
+        totalTargetCount += target;
+        if (done > 0) hasStartedAny = true;
+      });
+
+      const allCompleted = totalDoneCount >= totalTargetCount;
+      document.getElementById('detailSummaryText').textContent = allCompleted
+        ? `আলহামদুলিল্লাহ! আজকের সব আমল (${toBnNum(totalDoneCount)}/${toBnNum(totalTargetCount)} বার) সম্পন্ন হয়েছে।`
+        : `আজকের অগ্রগতি: ${toBnNum(totalDoneCount)} / ${toBnNum(totalTargetCount)} বার সম্পন্ন`;
+
+      startBtn.textContent = allCompleted
+        ? '✓ আমল সম্পন্ন (আবার দেখুন)'
+        : (hasStartedAny ? '▶ আমল চালিয়ে যান' : '▶ আমল শুরু করুন');
+
+      listEl.innerHTML = amals.map((a, idx) => {
+        const target = Number(a.Target_Count || 1);
+        const done = Math.min(target, Number(state.todayProgress[`${cat.Category_ID}__${a.Amal_ID}`] || 0));
+        const isDone = done >= target;
+
+        return `
+          <div class="item-card ${isDone ? 'completed-card' : ''}"
+               draggable="${state.amalReorderMode}"
+               ondragstart="onDragStartAmal(event, ${idx})"
+               ondragover="onDragOverItem(event)"
+               ondrop="onDropAmal(event, ${idx})">
+            <div class="item-header">
+              <div class="item-title-wrap">
+                <span class="order-num">${toBnNum(idx + 1)}</span>
+                <h4 class="item-title">${escapeHtml(a.Title)}</h4>
+              </div>
+              <span class="count-badge ${isDone ? 'done' : ''}">
+                ${isDone ? '✓ ' : ''}${toBnNum(done)} / ${toBnNum(target)} বার
+              </span>
+            </div>
+
+            ${a.Arabic_Text ? `<div class="arabic-text">${escapeHtml(a.Arabic_Text)}</div>` : ''}
+            ${a.Pronunciation_BN ? `<div class="pronunciation-text"><b>উচ্চারণ:</b> ${escapeHtml(a.Pronunciation_BN)}</div>` : ''}
+            ${a.Meaning_BN ? `<div class="meaning-box"><b>অর্থ:</b> ${escapeHtml(a.Meaning_BN)}</div>` : ''}
+
+            ${state.amalReorderMode ? `
+              <div class="reorder-controls">
+                <span class="drag-handle">☰ টেনে সরান</span>
+                <button class="btn btn-outline btn-sm" onclick="moveAmal(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ উপরে</button>
+                <button class="btn btn-outline btn-sm" onclick="moveAmal(${idx}, 1)" ${idx === amals.length - 1 ? 'disabled' : ''}>▼ নিচে</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* দোয়া সাজানো (Reorder / Shuffle / Drag-Drop) */
+
+    function toggleAmalReorder() {
+      state.amalReorderMode = !state.amalReorderMode;
+      const bar = document.getElementById('amalReorderBar');
+      const btn = document.getElementById('toggleAmalReorderBtn');
+      bar.classList.toggle('hidden', !state.amalReorderMode);
+      btn.textContent = state.amalReorderMode ? '✕ বন্ধ করুন' : '⇅ দোয়া সাজান';
+      renderCategoryDetail();
+    }
+
+    function applyNewAmalOrder(catAmals) {
+      catAmals.forEach((item, index) => {
+        item.Sort_Order = index + 1;
+      });
+      renderCategoryDetail();
+    }
+
+    function moveAmal(index, direction) {
+      const catAmals = getCategoryAmals(state.selectedCategoryId);
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= catAmals.length) return;
+
+      const temp = catAmals[index];
+      catAmals[index] = catAmals[targetIndex];
+      catAmals[targetIndex] = temp;
+      applyNewAmalOrder(catAmals);
+    }
+
+    function shuffleCurrentAmals() {
+      const catAmals = getCategoryAmals(state.selectedCategoryId);
+      for (let i = catAmals.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [catAmals[i], catAmals[j]] = [catAmals[j], catAmals[i]];
+      }
+      applyNewAmalOrder(catAmals);
+      showToast('দোয়াগুলো এলোমেলো করা হয়েছে — সেভ করতে ভুলবেন না');
+    }
+
+    let draggedAmalIdx = null;
+    function onDragStartAmal(e, idx) { draggedAmalIdx = idx; e.currentTarget.classList.add('dragging'); }
+    function onDragOverItem(e) { e.preventDefault(); }
+    function onDropAmal(e, dropIdx) {
+      e.preventDefault();
+      if (draggedAmalIdx === null || draggedAmalIdx === dropIdx) return;
+      const catAmals = getCategoryAmals(state.selectedCategoryId);
+      const [moved] = catAmals.splice(draggedAmalIdx, 1);
+      catAmals.splice(dropIdx, 0, moved);
+      draggedAmalIdx = null;
+      applyNewAmalOrder(catAmals);
+    }
+
+    async function saveAmalOrderToSheet() {
+      const catAmals = getCategoryAmals(state.selectedCategoryId);
+      const orders = catAmals.map((a, idx) => ({
+        Amal_ID: a.Amal_ID,
+        Sort_Order: idx + 1
+      }));
+
+      saveLocalCache();
+      showToast('ক্রম সেভ হচ্ছে...');
+
+      try {
+        const res = await postToGAS({ action: 'saveAmalOrder', orders });
+        if (res.status === 'success') {
+          state.amalReorderMode = false;
+          document.getElementById('amalReorderBar').classList.add('hidden');
+          document.getElementById('toggleAmalReorderBtn').textContent = '⇅ দোয়া সাজান';
+          renderCategoryDetail();
+          showToast('নতুন ক্রম গুগল শিটে সেভ হয়েছে');
+        } else {
+          showToast('ক্রম সেভ করা যায়নি');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি');
+      }
+    }
+
+    /* ==================== তসবি কাউন্টার ও পজ/রিজিউম সিস্টেম ==================== */
+
+    function startTasbihSession() {
+      unlockAudioContext();
+      const amals = getCategoryAmals(state.selectedCategoryId);
+      if (!amals.length) return;
+
+      // যে দোয়াটি এখনো শেষ হয়নি, ঠিক সেখান থেকেই শুরু করবে (Resume)
+      const firstIncompleteIdx = amals.findIndex(a => {
+        const done = Number(state.todayProgress[`${state.selectedCategoryId}__${a.Amal_ID}`] || 0);
+        return done < Number(a.Target_Count || 1);
+      });
+
+      state.activeTasbihIndex = firstIncompleteIdx >= 0 ? firstIncompleteIdx : 0;
+
+      const cat = state.categories.find(c => String(c.Category_ID) === String(state.selectedCategoryId));
+      document.getElementById('tasbihCatName').textContent = cat ? cat.Category_Name : '';
+      document.getElementById('tasbihOverlay').classList.remove('hidden');
+
+      renderActiveTasbihDua();
+    }
+
+    function renderActiveTasbihDua() {
+      const amals = getCategoryAmals(state.selectedCategoryId);
+      const dua = amals[state.activeTasbihIndex];
+      if (!dua) return;
+
+      const target = Number(dua.Target_Count || 1);
+      const done = Math.min(target, Number(state.todayProgress[`${state.selectedCategoryId}__${dua.Amal_ID}`] || 0));
+      const pct = Math.min(100, Math.round((done / target) * 100));
+
+      document.getElementById('tasbihStepInfo').textContent = `দোয়া ${toBnNum(state.activeTasbihIndex + 1)} / ${toBnNum(amals.length)}`;
+      document.getElementById('tasbihCounterText').textContent = `${toBnNum(done)} / ${toBnNum(target)}`;
+
+      document.getElementById('prevDuaBtn').disabled = state.activeTasbihIndex === 0;
+      document.getElementById('nextDuaBtn').disabled = state.activeTasbihIndex === amals.length - 1;
+
+      document.getElementById('activeDuaContainer').innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <h3 style="margin:0; font-size:1.18rem; color:var(--primary-dark);">${escapeHtml(dua.Title)}</h3>
+          <span class="count-badge ${done >= target ? 'done' : ''}">${toBnNum(done)} / ${toBnNum(target)} বার</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+        ${dua.Arabic_Text ? `<div class="arabic-text" style="font-size:1.85rem;">${escapeHtml(dua.Arabic_Text)}</div>` : ''}
+        ${dua.Pronunciation_BN ? `<div class="pronunciation-text" style="font-size:1.05rem;"><b>উচ্চারণ:</b> ${escapeHtml(dua.Pronunciation_BN)}</div>` : ''}
+        ${dua.Meaning_BN ? `<div class="meaning-box"><b>অর্থ:</b> ${escapeHtml(dua.Meaning_BN)}</div>` : ''}
+      `;
+    }
+
+    function navigateTasbihDua(step) {
+      const amals = getCategoryAmals(state.selectedCategoryId);
+      const nextIdx = state.activeTasbihIndex + step;
+      if (nextIdx >= 0 && nextIdx < amals.length) {
+        state.activeTasbihIndex = nextIdx;
+        renderActiveTasbihDua();
+      }
+    }
+
+    function handleTasbihTap() {
+      unlockAudioContext();
+      const amals = getCategoryAmals(state.selectedCategoryId);
+      const dua = amals[state.activeTasbihIndex];
+      if (!dua) return;
+
+      const key = `${state.selectedCategoryId}__${dua.Amal_ID}`;
+      const target = Number(dua.Target_Count || 1);
+      let current = Number(state.todayProgress[key] || 0);
+
+      if (current < target) {
+        current += 1;
+        state.todayProgress[key] = current;
+        saveLocalProgress();
+
+        // ব্যাকগ্রাউন্ডে গুগল শিটে সেভ করার জন্য কিউ করা
+        queueProgressForSync(state.selectedCategoryId, dua.Amal_ID, current, target);
+        renderActiveTasbihDua();
+
+        // টার্গেট পূর্ণ হলে বিপ সাউন্ড + ভাইব্রেশন দিয়ে পরের দোয়ায় চলে যাওয়া
+        if (current >= target) {
+          const nextIncomplete = amals.findIndex((item, idx) => {
+            if (idx <= state.activeTasbihIndex) return false;
+            const d = Number(state.todayProgress[`${state.selectedCategoryId}__${item.Amal_ID}`] || 0);
+            return d < Number(item.Target_Count || 1);
+          });
+
+          const anyRemaining = nextIncomplete !== -1 ? nextIncomplete : amals.findIndex(item => {
+            const d = Number(state.todayProgress[`${state.selectedCategoryId}__${item.Amal_ID}`] || 0);
+            return d < Number(item.Target_Count || 1);
+          });
+
+          if (anyRemaining !== -1) {
+            // একটি আমল (দোয়া) শেষ হওয়ার বিপ ও ভাইব্রেশন
+            playBeepSound('complete');
+            triggerVibration('complete');
+
+            setTimeout(() => {
+              state.activeTasbihIndex = anyRemaining;
+              renderActiveTasbihDua();
+              showToast(`✓ সম্পন্ন! পরবর্তী দোয়া: ${amals[anyRemaining].Title}`);
+            }, 350);
+          } else {
+            // পুরো বিভাগের সব আমল শেষ হওয়ার বিপ ও ভাইব্রেশন
+            playBeepSound('all_complete');
+            triggerVibration('all_complete');
+            flushProgressSync(true);
+            showToast('আলহামদুলিল্লাহ! আজকের সব আমল সম্পন্ন হয়েছে');
+            setTimeout(() => pauseAndExitTasbih(true), 950);
+          }
+        } else {
+          // সাধারণ ট্যাপ ভাইব্রেশন
+          triggerVibration('tap');
+        }
+      } else {
+        showToast('এই দোয়াটি ইতিমধ্যে সম্পন্ন হয়েছে');
+      }
+    }
+
+    function queueProgressForSync(catId, amalId, completedCount, targetCount) {
+      const key = `${catId}__${amalId}`;
+      pendingSyncRecords[key] = {
+        Date: getTodayDateStr(),
+        Category_ID: catId,
+        Amal_ID: amalId,
+        Completed_Count: completedCount,
+        Target_Count: targetCount
+      };
+
+      document.getElementById('tasbihSyncStatus').textContent = 'সেভ হচ্ছে...';
+      clearTimeout(saveDebounceTimer);
+      saveDebounceTimer = setTimeout(() => flushProgressSync(false), 1200);
+    }
+
+    async function flushProgressSync(keepalive = false) {
+      clearTimeout(saveDebounceTimer);
+      const records = Object.values(pendingSyncRecords);
+      if (!records.length) return;
+
+      pendingSyncRecords = {};
+      try {
+        await postToGAS({ action: 'saveProgress', records }, keepalive);
+        const statusEl = document.getElementById('tasbihSyncStatus');
+        if (statusEl) statusEl.textContent = '✓ গুগল শিটে সংরক্ষিত';
+      } catch (e) {
+        console.error('Sync failed:', e);
+      }
+    }
+
+    async function pauseAndExitTasbih(silent = false) {
+      await flushProgressSync(true);
+      document.getElementById('tasbihOverlay').classList.add('hidden');
+      renderCategoryDetail();
+      if (!silent) showToast('আমল পজ ও সংরক্ষণ করা হয়েছে');
+    }
+
+    async function resetTodayCategoryProgress() {
+      if (!state.selectedCategoryId) return;
+      if (!confirm('আজকের এই বিভাগের সব তসবি গণনা শূন্য (০) করতে চান?')) return;
+
+      const amals = getCategoryAmals(state.selectedCategoryId);
+      amals.forEach(a => {
+        delete state.todayProgress[`${state.selectedCategoryId}__${a.Amal_ID}`];
+      });
+      saveLocalProgress();
+      renderCategoryDetail();
+      showToast('আজকের কাউন্ট রিসেট হয়েছে');
+
+      try {
+        await postToGAS({
+          action: 'resetCategoryProgress',
+          Date: getTodayDateStr(),
+          Category_ID: state.selectedCategoryId
+        });
+      } catch (e) {}
+    }
+
+    // অ্যাপ বন্ধ বা ব্যাকগ্রাউন্ডে গেলে সাথে সাথে প্রোগ্রেস সেভ করা
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveLocalProgress();
+        flushProgressSync(true);
+      }
+    });
+
+    /* ==================== ২. মোনাজাত সেকশন ==================== */
+
+    function setMunajatFilter(filter, btnEl) {
+      state.munajatFilter = filter;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const reorderToggleBtn = document.getElementById('toggleMunajatReorderBtn');
+      if (filter === 'ALL') {
+        reorderToggleBtn.classList.remove('hidden');
+      } else {
+        reorderToggleBtn.classList.add('hidden');
+        state.munajatReorderMode = false;
+        document.getElementById('munajatReorderBar').classList.add('hidden');
+      }
+
+      renderMunajats();
+    }
+
+    function getFilteredMunajats() {
+      const sorted = [...state.munajat].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+      if (state.munajatFilter === 'ALL') return sorted;
+      return sorted.filter(m => String(m.Source_Type).trim().toLowerCase() === state.munajatFilter.toLowerCase());
+    }
+
+    function getSourceLabel(type) {
+      const t = String(type || '').trim();
+      if (t === 'Quran') return 'কোরআন';
+      if (t === 'Hadith') return 'হাদিস';
+      return 'নিজের লেখা';
+    }
+
+    function renderMunajats() {
+      const listEl = document.getElementById('munajatList');
+      const items = getFilteredMunajats();
+
+      if (!items.length) {
+        listEl.innerHTML = `<div class="state-box">এই বিভাগে কোনো মোনাজাত পাওয়া যায়নি। গুগল শিটের <b>Munajat</b> ট্যাবে ডাটা যোগ করুন।</div>`;
+        return;
+      }
+
+      listEl.innerHTML = items.map((m, idx) => {
+        const sourceClass = `source-${escapeHtml(m.Source_Type || 'Personal')}`;
+        const meaningId = `meaning_${escapeHtml(m.Munajat_ID)}`;
+
+        return `
+          <div class="item-card"
+               draggable="${state.munajatReorderMode}"
+               ondragstart="onDragStartMunajat(event, ${idx})"
+               ondragover="onDragOverItem(event)"
+               ondrop="onDropMunajat(event, ${idx})">
+            <div class="item-header">
+              <div class="item-title-wrap">
+                <span class="order-num">${toBnNum(idx + 1)}</span>
+                <h4 class="item-title">${escapeHtml(m.Title)}</h4>
+                <span class="source-tag ${sourceClass}">${getSourceLabel(m.Source_Type)}</span>
+              </div>
+
+              ${m.Bangla_Meaning ? `
+                <button class="meaning-toggle-btn" onclick="toggleMunajatMeaning('${meaningId}', this)">
+                  📖 বাংলা অর্থ
+                </button>
+              ` : ''}
+            </div>
+
+            ${m.Arabic_Text ? `<div class="arabic-text">${escapeHtml(m.Arabic_Text)}</div>` : ''}
+            ${m.Pronunciation_BN ? `<div class="pronunciation-text">${escapeHtml(m.Pronunciation_BN)}</div>` : ''}
+
+            ${m.Bangla_Meaning ? `
+              <div id="${meaningId}" class="meaning-box hidden">
+                <b>বাংলা অর্থ:</b> ${escapeHtml(m.Bangla_Meaning)}
+              </div>
+            ` : ''}
+
+            ${state.munajatReorderMode && state.munajatFilter === 'ALL' ? `
+              <div class="reorder-controls">
+                <span class="drag-handle">☰ টেনে সরান</span>
+                <button class="btn btn-outline btn-sm" onclick="moveMunajat(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ উপরে</button>
+                <button class="btn btn-outline btn-sm" onclick="moveMunajat(${idx}, 1)" ${idx === items.length - 1 ? 'disabled' : ''}>▼ নিচে</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleMunajatMeaning(elementId, btn) {
+      const box = document.getElementById(elementId);
+      if (!box) return;
+      const isHidden = box.classList.toggle('hidden');
+      btn.textContent = isHidden ? '📖 বাংলা অর্থ' : '🔼 অর্থ লুকান';
+    }
+
+    function toggleMunajatReorder() {
+      state.munajatReorderMode = !state.munajatReorderMode;
+      const bar = document.getElementById('munajatReorderBar');
+      const btn = document.getElementById('toggleMunajatReorderBtn');
+      bar.classList.toggle('hidden', !state.munajatReorderMode);
+      btn.textContent = state.munajatReorderMode ? '✕ বন্ধ করুন' : '⇅ সাজান';
+      renderMunajats();
+    }
+
+    function applyNewMunajatOrder(sortedList) {
+      sortedList.forEach((item, index) => {
+        item.Sort_Order = index + 1;
+      });
+      state.munajat = sortedList;
+      renderMunajats();
+    }
+
+    function moveMunajat(index, direction) {
+      const list = getFilteredMunajats();
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= list.length) return;
+
+      const temp = list[index];
+      list[index] = list[targetIndex];
+      list[targetIndex] = temp;
+      applyNewMunajatOrder(list);
+    }
+
+    function shuffleMunajats() {
+      const list = getFilteredMunajats();
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      applyNewMunajatOrder(list);
+      showToast('মোনাজাতগুলো এলোমেলো করা হয়েছে — সেভ করুন');
+    }
+
+    let draggedMunajatIdx = null;
+    function onDragStartMunajat(e, idx) { draggedMunajatIdx = idx; e.currentTarget.classList.add('dragging'); }
+    function onDropMunajat(e, dropIdx) {
+      e.preventDefault();
+      if (draggedMunajatIdx === null || draggedMunajatIdx === dropIdx) return;
+      const list = getFilteredMunajats();
+      const [moved] = list.splice(draggedMunajatIdx, 1);
+      list.splice(dropIdx, 0, moved);
+      draggedMunajatIdx = null;
+      applyNewMunajatOrder(list);
+    }
+
+    async function saveMunajatOrderToSheet() {
+      const list = getFilteredMunajats();
+      const orders = list.map((m, idx) => ({
+        Munajat_ID: m.Munajat_ID,
+        Sort_Order: idx + 1
+      }));
+
+      saveLocalCache();
+      showToast('মোনাজাতের ক্রম সেভ হচ্ছে...');
+
+      try {
+        const res = await postToGAS({ action: 'saveMunajatOrder', orders });
+        if (res.status === 'success') {
+          state.munajatReorderMode = false;
+          document.getElementById('munajatReorderBar').classList.add('hidden');
+          document.getElementById('toggleMunajatReorderBtn').textContent = '⇅ সাজান';
+          renderMunajats();
+          showToast('নতুন ক্রম গুগল শিটে সেভ হয়েছে');
+        } else {
+          showToast('সেভ করা যায়নি');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি');
+      }
+    }
+
+    /* ==================== অ্যাপ ইনিশিয়ালাইজেশন ==================== */
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('todayDateLabel').textContent = toBnNum(getTodayDateStr());
+      loadPrefs();
+      loadLocalCache();
+      renderAll();
+      fetchAllData(false);
+    });
+  </script>
+</body>
+</html>
