@@ -244,7 +244,7 @@
       border-radius: 8px;
     }
 
-    /* Category Grid */
+    /* Category Grid (Daily Amal) */
     .category-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -367,8 +367,7 @@
     }
 
     .start-amal-btn {
-      flex: 1;
-      min-width: 180px;
+      flex: 1 1 100%;
       padding: 12px 16px;
       font-size: 1.02rem;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -511,7 +510,7 @@
       gap: 8px;
       overflow-x: auto;
       padding-bottom: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .filter-pill {
@@ -531,6 +530,67 @@
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
+    }
+
+    /* Munajat Grouped Category Section */
+    .munajat-cat-group {
+      margin-bottom: 20px;
+    }
+
+    .munajat-cat-header {
+      background: linear-gradient(135deg, #e5f3ee, #f2f8f5);
+      border: 1.5px solid #c3dfd5;
+      border-left: 5px solid var(--primary);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .munajat-cat-title-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      cursor: pointer;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .munajat-cat-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+
+    .munajat-cat-count {
+      font-size: 0.78rem;
+      background: #ffffff;
+      color: var(--primary-dark);
+      padding: 2px 9px;
+      border-radius: 99px;
+      font-weight: 600;
+      border: 1px solid #cce3da;
+    }
+
+    .munajat-cat-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .munajat-cat-items {
+      padding-left: 10px;
+      border-left: 2.5px solid #cfe3dc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .source-tag {
@@ -751,14 +811,14 @@
     /* Empty / Loading States */
     .state-box {
       text-align: center;
-      padding: 36px 20px;
+      padding: 28px 18px;
       background: var(--card);
       border-radius: var(--radius);
       border: 1.5px dashed var(--border);
       color: var(--muted);
     }
 
-    /* Modal for Adding Category */
+    /* Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -775,34 +835,65 @@
       border-radius: 18px;
       padding: 20px;
       width: 100%;
-      max-width: 400px;
+      max-width: 460px;
+      max-height: 88vh;
+      overflow-y: auto;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     }
 
     .modal-card h3 {
-      margin: 0 0 12px;
+      margin: 0 0 6px;
       color: var(--primary-dark);
+    }
+
+    .modal-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
     }
 
     .input-field {
       width: 100%;
-      padding: 11px 13px;
+      padding: 10px 12px;
       border: 1.5px solid var(--border);
       border-radius: 11px;
       font-family: inherit;
-      font-size: 1rem;
-      margin-bottom: 14px;
+      font-size: 0.96rem;
+      margin-bottom: 12px;
       outline: none;
+      background: #fff;
     }
 
     .input-field:focus {
       border-color: var(--primary);
     }
 
+    textarea.input-field {
+      resize: vertical;
+      min-height: 66px;
+      line-height: 1.5;
+    }
+
+    textarea.arabic-input {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      direction: rtl;
+      text-align: right;
+    }
+
     .modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 8px;
+      margin-top: 6px;
     }
   </style>
 </head>
@@ -863,7 +954,8 @@
 
           <div class="detail-actions">
             <button class="btn start-amal-btn" id="startAmalBtn" onclick="startTasbihSession()">▶ আমল শুরু করুন</button>
-            <button class="btn btn-outline" id="toggleAmalReorderBtn" onclick="toggleAmalReorder()">⇅ দোয়া সাজান</button>
+            <button class="btn btn-primary btn-sm" onclick="openAddDuaModal()">+ দোয়া যোগ করুন</button>
+            <button class="btn btn-outline btn-sm" id="toggleAmalReorderBtn" onclick="toggleAmalReorder()">⇅ দোয়া সাজান</button>
             <button class="btn btn-danger-soft btn-sm" id="resetTodayBtn" onclick="resetTodayCategoryProgress()" title="আজকের কাউন্ট রিসেট করুন">↺ রিসেট</button>
           </div>
 
@@ -882,7 +974,9 @@
     <section id="munajatSection" class="hidden">
       <div class="toolbar">
         <h2 class="section-heading">মোনাজাত সমূহ</h2>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; gap:7px; flex-wrap:wrap;">
+          <button class="btn btn-outline btn-sm" onclick="openAddMunajatCatModal()">+ ক্যাটাগরি</button>
+          <button class="btn btn-primary btn-sm" onclick="openAddMunajatModal()">+ মোনাজাত যোগ করুন</button>
           <button class="btn btn-outline btn-sm" id="toggleMunajatReorderBtn" onclick="toggleMunajatReorder()">⇅ সাজান</button>
         </div>
       </div>
@@ -896,14 +990,14 @@
 
       <!-- Reorder Action Bar for Munajat -->
       <div id="munajatReorderBar" class="hidden" style="margin-bottom:12px; background:var(--card); padding:10px 12px; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-        <span style="font-size:0.84rem; color:var(--muted);">সব মোনাজাতের ক্রম পরিবর্তন করুন:</span>
+        <span style="font-size:0.84rem; color:var(--muted);">ক্যাটাগরি ও দোয়ার ক্রম পরিবর্তন করুন:</span>
         <div style="display:flex; gap:8px;">
           <button class="btn btn-outline btn-sm" onclick="shuffleMunajats()">🔀 এলোমেলো</button>
           <button class="btn btn-accent btn-sm" onclick="saveMunajatOrderToSheet()">💾 ক্রম সেভ করুন</button>
         </div>
       </div>
 
-      <div id="munajatList" class="card-list"></div>
+      <div id="munajatList"></div>
     </section>
 
   </main>
@@ -943,14 +1037,98 @@
     </div>
   </div>
 
-  <!-- Add Category Modal -->
+  <!-- Modal 1: Add Amal Category -->
   <div id="addCategoryModal" class="modal-backdrop hidden">
     <div class="modal-card">
       <h3>নতুন আমল বাটন যোগ করুন</h3>
-      <input type="text" id="newCategoryNameInput" class="input-field" placeholder="যেমন: রাতের আমল বা ফজরের পর" />
+      <p class="modal-subtitle">যেমন: সকালের আমল, রাতের আমল বা ফজরের পর</p>
+      <input type="text" id="newCategoryNameInput" class="input-field" placeholder="বাটনের নাম লিখুন..." />
       <div class="modal-actions">
         <button class="btn btn-outline" onclick="closeAddCategoryModal()">বাতিল</button>
         <button class="btn btn-primary" id="saveNewCatBtn" onclick="submitNewCategory()">যোগ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Add Dua -->
+  <div id="addDuaModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <h3>নতুন দোয়া যোগ করুন</h3>
+      <p class="modal-subtitle" id="addDuaCatSubtitle"></p>
+
+      <label class="field-label" for="duaTitleInput">দোয়ার শিরোনাম *</label>
+      <input type="text" id="duaTitleInput" class="input-field" placeholder="যেমন: সুবহানাল্লাহি ওয়া বিহামদিহি" />
+
+      <label class="field-label" for="duaTargetInput">কতবার পড়তে হবে (সংখ্যা) *</label>
+      <input type="number" id="duaTargetInput" class="input-field" value="1" min="1" max="10000" />
+
+      <label class="field-label" for="duaArabicInput">আরবি টেক্সট (ঐচ্ছিক)</label>
+      <textarea id="duaArabicInput" class="input-field arabic-input" placeholder="আরবি দোয়া লিখুন বা পেস্ট করুন..."></textarea>
+
+      <label class="field-label" for="duaPronunciationInput">বাংলা উচ্চারণ (ঐচ্ছিক)</label>
+      <textarea id="duaPronunciationInput" class="input-field" placeholder="বাংলা উচ্চারণ লিখুন..."></textarea>
+
+      <label class="field-label" for="duaMeaningInput">বাংলা অর্থ (ঐচ্ছিক)</label>
+      <textarea id="duaMeaningInput" class="input-field" placeholder="বাংলা অর্থ লিখুন..."></textarea>
+
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeAddDuaModal()">বাতিল</button>
+        <button class="btn btn-primary" id="saveNewDuaBtn" onclick="submitNewDua()">সেভ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Add Munajat Category -->
+  <div id="addMunajatCatModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <h3>নতুন মোনাজাত ক্যাটাগরি যোগ করুন</h3>
+      <p class="modal-subtitle">যেমন: রিজিক চেয়ে দোয়া, ক্ষমা প্রার্থনা, সুস্থতার দোয়া</p>
+      <input type="text" id="newMunajatCatInput" class="input-field" placeholder="ক্যাটাগরির নাম লিখুন..." />
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeAddMunajatCatModal()">বাতিল</button>
+        <button class="btn btn-primary" id="saveNewMunajatCatBtn" onclick="submitNewMunajatCategory()">যোগ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Add Munajat -->
+  <div id="addMunajatModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <h3>নতুন মোনাজাত যোগ করুন</h3>
+      <p class="modal-subtitle">ক্যাটাগরি ও উৎস বেছে নিয়ে মোনাজাত যুক্ত করুন</p>
+
+      <label class="field-label" for="munajatCategorySelect">মোনাজাতের ক্যাটাগরি *</label>
+      <select id="munajatCategorySelect" class="input-field" onchange="onMunajatCatSelectChange()">
+        <option value="__NEW__">+ নতুন ক্যাটাগরি লিখুন...</option>
+      </select>
+
+      <div id="newMunajatCatInlineWrap" class="hidden">
+        <label class="field-label" for="munajatNewCatInlineInput">নতুন ক্যাটাগরির নাম *</label>
+        <input type="text" id="munajatNewCatInlineInput" class="input-field" placeholder="যেমন: রিজিক চেয়ে দোয়া" />
+      </div>
+
+      <label class="field-label" for="munajatSourceInput">মোনাজাতের ধরন *</label>
+      <select id="munajatSourceInput" class="input-field">
+        <option value="Quran">কোরআন থেকে</option>
+        <option value="Hadith">হাদিস থেকে</option>
+        <option value="Personal">নিজের লেখা</option>
+      </select>
+
+      <label class="field-label" for="munajatTitleInput">মোনাজাতের শিরোনাম *</label>
+      <input type="text" id="munajatTitleInput" class="input-field" placeholder="যেমন: হালাল রিজিক বৃদ্ধির দোয়া" />
+
+      <label class="field-label" for="munajatArabicInput">আরবি টেক্সট (ঐচ্ছিক)</label>
+      <textarea id="munajatArabicInput" class="input-field arabic-input" placeholder="নিজের লেখা বাংলা মোনাজাত হলে খালি রাখতে পারেন..."></textarea>
+
+      <label class="field-label" for="munajatPronunciationInput">বাংলা উচ্চারণ বা নিজের লেখা মোনাজাত</label>
+      <textarea id="munajatPronunciationInput" class="input-field" placeholder="বাংলা উচ্চারণ অথবা নিজের মনের মতো মোনাজাত লিখুন..."></textarea>
+
+      <label class="field-label" for="munajatMeaningInput">বাংলা অর্থ (ঐচ্ছিক)</label>
+      <textarea id="munajatMeaningInput" class="input-field" placeholder="বাংলা অর্থ লিখুন (অর্থ বাটনে ক্লিক করলে দেখাবে)..."></textarea>
+
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeAddMunajatModal()">বাতিল</button>
+        <button class="btn btn-primary" id="saveNewMunajatBtn" onclick="submitNewMunajat()">সেভ করুন</button>
       </div>
     </div>
   </div>
@@ -959,15 +1137,18 @@
     // আপনার Google Apps Script Web App URL
     const API_URL = 'https://script.google.com/macros/s/AKfycbwhJx_Jkq1GPvG8Ijvk7KWWRuC5VlOyAqyzvqUNjARVikFpLhv0tt1I1J8Wz3_I7wm7/exec';
 
-    const STORAGE_CACHE_KEY = 'amal_munajat_cache_v1';
+    const STORAGE_CACHE_KEY = 'amal_munajat_cache_v2';
     const STORAGE_PROGRESS_KEY = 'amal_daily_progress_v1';
     const STORAGE_PREFS_KEY = 'amal_sound_vibrate_prefs_v1';
+    const DEFAULT_MCAT_ID = 'MCAT_DEFAULT';
 
     // অ্যাপের মূল স্টেট
     let state = {
       categories: [],
       dailyAmal: [],
+      munajatCategories: [],
       munajat: [],
+      collapsedMunajatCats: {}, // catId -> boolean
       todayProgress: {}, // key: `${Category_ID}__${Amal_ID}` -> count (number)
       prefs: {
         beep: true,
@@ -1021,12 +1202,6 @@
       osc.stop(startTime + duration + 0.02);
     }
 
-    /**
-     * type:
-     * - 'complete': একটি দোয়ার নির্ধারিত সংখ্যা পূর্ণ হলে ডাবল বিপ
-     * - 'all_complete': পুরো আমল বিভাগ শেষ হলে আনন্দদায়ক ৩-নোট বিপ
-     * - 'test': বিপ অন করার সময় ছোট সিঙ্গেল বিপ
-     */
     function playBeepSound(type = 'complete') {
       if (!state.prefs.beep) return;
       unlockAudioContext();
@@ -1036,23 +1211,15 @@
       if (type === 'test') {
         playTone(880, now, 0.13, 0.22);
       } else if (type === 'complete') {
-        // একটি দোয়া শেষ হওয়ার স্পষ্ট ডাবল বিপ
         playTone(880, now, 0.14, 0.28);
         playTone(1174.66, now + 0.16, 0.22, 0.30);
       } else if (type === 'all_complete') {
-        // সব আমল শেষ হওয়ার বিপ
         playTone(784.00, now, 0.13, 0.26);
         playTone(987.77, now + 0.15, 0.13, 0.28);
         playTone(1318.51, now + 0.30, 0.28, 0.32);
       }
     }
 
-    /**
-     * type:
-     * - 'tap': প্রতিবার তসবি চাপায় হালকা ভাইব্রেশন
-     * - 'complete': একটি দোয়া শেষ হলে স্পষ্ট ডাবল ভাইব্রেশন
-     * - 'all_complete': সব দোয়া শেষ হলে দীর্ঘ ভাইব্রেশন
-     */
     function triggerVibration(type = 'tap') {
       if (!state.prefs.vibrate || !navigator.vibrate) return;
       try {
@@ -1164,6 +1331,7 @@
         if (cached) {
           state.categories = cached.categories || [];
           state.dailyAmal = cached.dailyAmal || [];
+          state.munajatCategories = cached.munajatCategories || [];
           state.munajat = cached.munajat || [];
         }
         const savedProg = JSON.parse(localStorage.getItem(STORAGE_PROGRESS_KEY) || '{}');
@@ -1183,6 +1351,7 @@
       localStorage.setItem(STORAGE_CACHE_KEY, JSON.stringify({
         categories: state.categories,
         dailyAmal: state.dailyAmal,
+        munajatCategories: state.munajatCategories,
         munajat: state.munajat
       }));
     }
@@ -1215,9 +1384,9 @@
         if (json.status === 'success' && json.data) {
           state.categories = (json.data.categories || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
           state.dailyAmal = (json.data.dailyAmal || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+          state.munajatCategories = (json.data.munajatCategories || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
           state.munajat = (json.data.munajat || []).sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
 
-          // আজকের তারিখের অগ্রগতি শিট থেকে মার্জ করা (লোকাল ও শিটের মধ্যে যেটি বড় সেটি রাখা)
           const today = getTodayDateStr();
           (json.data.progress || []).forEach(row => {
             if (String(row.Date).trim() === today) {
@@ -1388,6 +1557,74 @@
       }
     }
 
+    /* নতুন দোয়া যোগ করার মডাল ও সাবমিট */
+
+    function openAddDuaModal() {
+      if (!state.selectedCategoryId) return;
+      const cat = state.categories.find(c => String(c.Category_ID) === String(state.selectedCategoryId));
+      document.getElementById('addDuaCatSubtitle').textContent = cat ? `বিভাগ: ${cat.Category_Name}` : '';
+
+      document.getElementById('duaTitleInput').value = '';
+      document.getElementById('duaTargetInput').value = '1';
+      document.getElementById('duaArabicInput').value = '';
+      document.getElementById('duaPronunciationInput').value = '';
+      document.getElementById('duaMeaningInput').value = '';
+
+      document.getElementById('addDuaModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('duaTitleInput').focus(), 80);
+    }
+
+    function closeAddDuaModal() {
+      document.getElementById('addDuaModal').classList.add('hidden');
+    }
+
+    async function submitNewDua() {
+      if (!state.selectedCategoryId) return;
+
+      const title = document.getElementById('duaTitleInput').value.trim();
+      const targetCount = Math.max(1, Number(document.getElementById('duaTargetInput').value || 1));
+      const arabicText = document.getElementById('duaArabicInput').value.trim();
+      const pronunciationBn = document.getElementById('duaPronunciationInput').value.trim();
+      const meaningBn = document.getElementById('duaMeaningInput').value.trim();
+
+      if (!title) {
+        showToast('দোয়ার শিরোনাম লিখুন');
+        return;
+      }
+
+      const btn = document.getElementById('saveNewDuaBtn');
+      btn.disabled = true;
+      btn.textContent = 'সেভ হচ্ছে...';
+
+      try {
+        const res = await postToGAS({
+          action: 'addDua',
+          categoryId: state.selectedCategoryId,
+          title: title,
+          targetCount: targetCount,
+          arabicText: arabicText,
+          pronunciationBn: pronunciationBn,
+          meaningBn: meaningBn
+        });
+
+        if (res.status === 'success' && res.amal) {
+          state.dailyAmal.push(res.amal);
+          saveLocalCache();
+          renderCategoryDetail();
+          renderCategories();
+          closeAddDuaModal();
+          showToast('নতুন দোয়া যোগ করা হয়েছে');
+        } else {
+          showToast(res.message || 'দোয়া যোগ করা যায়নি (Code.gs আপডেট চেক করুন)');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি, আবার চেষ্টা করুন');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'সেভ করুন';
+      }
+    }
+
     function openCategoryDetail(catId) {
       state.selectedCategoryId = catId;
       state.amalReorderMode = false;
@@ -1429,7 +1666,8 @@
         startBtn.style.opacity = '0.5';
         listEl.innerHTML = `
           <div class="state-box">
-            গুগল শিটের <b>Daily_Amal</b> ট্যাবে <code>${escapeHtml(cat.Category_ID)}</code> আইডি দিয়ে দোয়া যুক্ত করুন, তারপর উপরের <b>সিঙ্ক</b> বাটন চাপুন।
+            <p style="margin:0 0 12px;">এই বিভাগে এখনো কোনো দোয়া নেই। নিচের বাটন চেপে সরাসরি নতুন দোয়া যোগ করুন:</p>
+            <button class="btn btn-primary" onclick="openAddDuaModal()">+ দোয়া যোগ করুন</button>
           </div>
         `;
         return;
@@ -1581,7 +1819,6 @@
       const amals = getCategoryAmals(state.selectedCategoryId);
       if (!amals.length) return;
 
-      // যে দোয়াটি এখনো শেষ হয়নি, ঠিক সেখান থেকেই শুরু করবে (Resume)
       const firstIncompleteIdx = amals.findIndex(a => {
         const done = Number(state.todayProgress[`${state.selectedCategoryId}__${a.Amal_ID}`] || 0);
         return done < Number(a.Target_Count || 1);
@@ -1649,11 +1886,9 @@
         state.todayProgress[key] = current;
         saveLocalProgress();
 
-        // ব্যাকগ্রাউন্ডে গুগল শিটে সেভ করার জন্য কিউ করা
         queueProgressForSync(state.selectedCategoryId, dua.Amal_ID, current, target);
         renderActiveTasbihDua();
 
-        // টার্গেট পূর্ণ হলে বিপ সাউন্ড + ভাইব্রেশন দিয়ে পরের দোয়ায় চলে যাওয়া
         if (current >= target) {
           const nextIncomplete = amals.findIndex((item, idx) => {
             if (idx <= state.activeTasbihIndex) return false;
@@ -1667,7 +1902,6 @@
           });
 
           if (anyRemaining !== -1) {
-            // একটি আমল (দোয়া) শেষ হওয়ার বিপ ও ভাইব্রেশন
             playBeepSound('complete');
             triggerVibration('complete');
 
@@ -1677,7 +1911,6 @@
               showToast(`✓ সম্পন্ন! পরবর্তী দোয়া: ${amals[anyRemaining].Title}`);
             }, 350);
           } else {
-            // পুরো বিভাগের সব আমল শেষ হওয়ার বিপ ও ভাইব্রেশন
             playBeepSound('all_complete');
             triggerVibration('all_complete');
             flushProgressSync(true);
@@ -1685,7 +1918,6 @@
             setTimeout(() => pauseAndExitTasbih(true), 950);
           }
         } else {
-          // সাধারণ ট্যাপ ভাইব্রেশন
           triggerVibration('tap');
         }
       } else {
@@ -1751,7 +1983,6 @@
       } catch (e) {}
     }
 
-    // অ্যাপ বন্ধ বা ব্যাকগ্রাউন্ডে গেলে সাথে সাথে প্রোগ্রেস সেভ করা
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
         saveLocalProgress();
@@ -1759,7 +1990,205 @@
       }
     });
 
-    /* ==================== ২. মোনাজাত সেকশন ==================== */
+    /* ==================== ২. মোনাজাত ও মোনাজাত ক্যাটাগরি সেকশন ==================== */
+
+    function openAddMunajatCatModal() {
+      document.getElementById('newMunajatCatInput').value = '';
+      document.getElementById('addMunajatCatModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('newMunajatCatInput').focus(), 80);
+    }
+
+    function closeAddMunajatCatModal() {
+      document.getElementById('addMunajatCatModal').classList.add('hidden');
+    }
+
+    async function submitNewMunajatCategory() {
+      const name = document.getElementById('newMunajatCatInput').value.trim();
+      if (!name) {
+        showToast('ক্যাটাগরির নাম লিখুন');
+        return;
+      }
+
+      const btn = document.getElementById('saveNewMunajatCatBtn');
+      btn.disabled = true;
+      btn.textContent = 'যোগ হচ্ছে...';
+
+      try {
+        const res = await postToGAS({ action: 'addMunajatCategory', categoryName: name });
+        if (res.status === 'success' && res.category) {
+          const exists = state.munajatCategories.some(c => String(c.Category_ID) === String(res.category.Category_ID));
+          if (!exists) {
+            state.munajatCategories.push(res.category);
+          }
+          saveLocalCache();
+          renderMunajats();
+          closeAddMunajatCatModal();
+          showToast(`"${name}" ক্যাটাগরি যোগ হয়েছে`);
+        } else {
+          showToast(res.message || 'ক্যাটাগরি যোগ করা যায়নি (Code.gs আপডেট চেক করুন)');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি, আবার চেষ্টা করুন');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'যোগ করুন';
+      }
+    }
+
+    async function deleteMunajatCategory(catId, catName) {
+      if (!confirm(`আপনি কি নিশ্চিতভাবে "${catName}" ক্যাটাগরি এবং এর ভিতরের মোনাজাতগুলো ডিলিট করতে চান?`)) {
+        return;
+      }
+
+      const prevCats = [...state.munajatCategories];
+      const prevItems = [...state.munajat];
+      state.munajatCategories = state.munajatCategories.filter(c => String(c.Category_ID) !== String(catId));
+      state.munajat = state.munajat.filter(m => resolveMunajatCatId(m) !== String(catId));
+      saveLocalCache();
+      renderMunajats();
+      showToast('ডিলিট হচ্ছে...');
+
+      try {
+        const res = await postToGAS({ action: 'deleteMunajatCategory', categoryId: catId });
+        if (res.status === 'success') {
+          showToast(`"${catName}" ডিলিট সম্পন্ন`);
+        } else {
+          state.munajatCategories = prevCats;
+          state.munajat = prevItems;
+          saveLocalCache();
+          renderMunajats();
+          showToast('ডিলিট করা যায়নি');
+        }
+      } catch (e) {
+        state.munajatCategories = prevCats;
+        state.munajat = prevItems;
+        saveLocalCache();
+        renderMunajats();
+        showToast('নেটওয়ার্ক ত্রুটি');
+      }
+    }
+
+    function openAddMunajatModal(preselectedCatId = null) {
+      const catSelect = document.getElementById('munajatCategorySelect');
+      const sortedCats = [...state.munajatCategories].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+
+      let optionsHtml = sortedCats.map(c =>
+        `<option value="${escapeHtml(c.Category_ID)}">${escapeHtml(c.Category_Name)}</option>`
+      ).join('');
+      optionsHtml += `<option value="${DEFAULT_MCAT_ID}">সাধারণ মোনাজাত</option>`;
+      optionsHtml += `<option value="__NEW__">+ নতুন ক্যাটাগরি লিখুন...</option>`;
+      catSelect.innerHTML = optionsHtml;
+
+      if (preselectedCatId) {
+        catSelect.value = preselectedCatId;
+      } else if (sortedCats.length > 0) {
+        catSelect.value = sortedCats[0].Category_ID;
+      } else {
+        catSelect.value = '__NEW__';
+      }
+      onMunajatCatSelectChange();
+
+      const sourceSelect = document.getElementById('munajatSourceInput');
+      if (['Quran', 'Hadith', 'Personal'].includes(state.munajatFilter)) {
+        sourceSelect.value = state.munajatFilter;
+      } else {
+        sourceSelect.value = 'Quran';
+      }
+
+      document.getElementById('munajatNewCatInlineInput').value = '';
+      document.getElementById('munajatTitleInput').value = '';
+      document.getElementById('munajatArabicInput').value = '';
+      document.getElementById('munajatPronunciationInput').value = '';
+      document.getElementById('munajatMeaningInput').value = '';
+
+      document.getElementById('addMunajatModal').classList.remove('hidden');
+      setTimeout(() => {
+        if (catSelect.value === '__NEW__') {
+          document.getElementById('munajatNewCatInlineInput').focus();
+        } else {
+          document.getElementById('munajatTitleInput').focus();
+        }
+      }, 80);
+    }
+
+    function onMunajatCatSelectChange() {
+      const val = document.getElementById('munajatCategorySelect').value;
+      const inlineWrap = document.getElementById('newMunajatCatInlineWrap');
+      inlineWrap.classList.toggle('hidden', val !== '__NEW__');
+    }
+
+    function closeAddMunajatModal() {
+      document.getElementById('addMunajatModal').classList.add('hidden');
+    }
+
+    async function submitNewMunajat() {
+      const catSelectVal = document.getElementById('munajatCategorySelect').value;
+      const newCatInline = document.getElementById('munajatNewCatInlineInput').value.trim();
+
+      let categoryId = '';
+      let newCategoryName = '';
+
+      if (catSelectVal === '__NEW__') {
+        if (!newCatInline) {
+          showToast('নতুন ক্যাটাগরির নাম লিখুন (যেমন: রিজিক চেয়ে দোয়া)');
+          return;
+        }
+        newCategoryName = newCatInline;
+      } else if (catSelectVal !== DEFAULT_MCAT_ID) {
+        categoryId = catSelectVal;
+      }
+
+      const sourceType = document.getElementById('munajatSourceInput').value;
+      const title = document.getElementById('munajatTitleInput').value.trim();
+      const arabicText = document.getElementById('munajatArabicInput').value.trim();
+      const pronunciationBn = document.getElementById('munajatPronunciationInput').value.trim();
+      const banglaMeaning = document.getElementById('munajatMeaningInput').value.trim();
+
+      if (!title) {
+        showToast('মোনাজাতের শিরোনাম লিখুন');
+        return;
+      }
+      if (!arabicText && !pronunciationBn && !banglaMeaning) {
+        showToast('মোনাজাতের আরবি, উচ্চারণ বা বাংলা অর্থ লিখুন');
+        return;
+      }
+
+      const btn = document.getElementById('saveNewMunajatBtn');
+      btn.disabled = true;
+      btn.textContent = 'সেভ হচ্ছে...';
+
+      try {
+        const res = await postToGAS({
+          action: 'addMunajat',
+          categoryId: categoryId,
+          newCategoryName: newCategoryName,
+          sourceType: sourceType,
+          title: title,
+          arabicText: arabicText,
+          pronunciationBn: pronunciationBn,
+          banglaMeaning: banglaMeaning
+        });
+
+        if (res.status === 'success' && res.munajat) {
+          if (res.createdCategory) {
+            const exists = state.munajatCategories.some(c => String(c.Category_ID) === String(res.createdCategory.Category_ID));
+            if (!exists) state.munajatCategories.push(res.createdCategory);
+          }
+          state.munajat.push(res.munajat);
+          saveLocalCache();
+          renderMunajats();
+          closeAddMunajatModal();
+          showToast('নতুন মোনাজাত যোগ করা হয়েছে');
+        } else {
+          showToast(res.message || 'মোনাজাত যোগ করা যায়নি (Code.gs আপডেট চেক করুন)');
+        }
+      } catch (e) {
+        showToast('নেটওয়ার্ক ত্রুটি, আবার চেষ্টা করুন');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'সেভ করুন';
+      }
+    }
 
     function setMunajatFilter(filter, btnEl) {
       state.munajatFilter = filter;
@@ -1778,10 +2207,15 @@
       renderMunajats();
     }
 
-    function getFilteredMunajats() {
-      const sorted = [...state.munajat].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
-      if (state.munajatFilter === 'ALL') return sorted;
-      return sorted.filter(m => String(m.Source_Type).trim().toLowerCase() === state.munajatFilter.toLowerCase());
+    function resolveMunajatCatId(m) {
+      const raw = String(m.Category_ID || '').trim();
+      if (!raw) return DEFAULT_MCAT_ID;
+      // আইডি বা নাম—যেকোনোটি মিললে ক্যাটাগরি আইডি রিটার্ন করবে
+      const byId = state.munajatCategories.find(c => String(c.Category_ID).trim() === raw);
+      if (byId) return String(byId.Category_ID).trim();
+      const byName = state.munajatCategories.find(c => String(c.Category_Name).trim() === raw);
+      if (byName) return String(byName.Category_ID).trim();
+      return DEFAULT_MCAT_ID;
     }
 
     function getSourceLabel(type) {
@@ -1791,55 +2225,129 @@
       return 'নিজের লেখা';
     }
 
-    function renderMunajats() {
-      const listEl = document.getElementById('munajatList');
-      const items = getFilteredMunajats();
+    function toggleMunajatCatCollapse(catId) {
+      state.collapsedMunajatCats[catId] = !state.collapsedMunajatCats[catId];
+      renderMunajats();
+    }
 
-      if (!items.length) {
-        listEl.innerHTML = `<div class="state-box">এই বিভাগে কোনো মোনাজাত পাওয়া যায়নি। গুগল শিটের <b>Munajat</b> ট্যাবে ডাটা যোগ করুন।</div>`;
+    function renderMunajats() {
+      const containerEl = document.getElementById('munajatList');
+      const sortedCats = [...state.munajatCategories].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+      const sortedMunajats = [...state.munajat].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+
+      const matchesSource = (m) => {
+        if (state.munajatFilter === 'ALL') return true;
+        return String(m.Source_Type).trim().toLowerCase() === state.munajatFilter.toLowerCase();
+      };
+
+      // ক্যাটাগরি গ্রুপ লিস্ট তৈরি
+      const groups = sortedCats.map(cat => ({
+        Category_ID: String(cat.Category_ID).trim(),
+        Category_Name: cat.Category_Name,
+        isCustom: true,
+        items: sortedMunajats.filter(m => resolveMunajatCatId(m) === String(cat.Category_ID).trim() && matchesSource(m))
+      }));
+
+      // যেসব মোনাজাতের কোনো ক্যাটাগরি সেট করা নেই সেগুলো "সাধারণ মোনাজাত" গ্রুপে থাকবে
+      const uncategorizedItems = sortedMunajats.filter(m => resolveMunajatCatId(m) === DEFAULT_MCAT_ID && matchesSource(m));
+      if (uncategorizedItems.length > 0 || groups.length === 0) {
+        groups.push({
+          Category_ID: DEFAULT_MCAT_ID,
+          Category_Name: 'সাধারণ মোনাজাত',
+          isCustom: false,
+          items: uncategorizedItems
+        });
+      }
+
+      // সোর্স ফিল্টার চালু থাকলে যে ক্যাটাগরিতে কোনো দোয়া নেই সেটি লুকানো থাকবে
+      const visibleGroups = state.munajatFilter === 'ALL'
+        ? groups
+        : groups.filter(g => g.items.length > 0);
+
+      if (!visibleGroups.length || (visibleGroups.length === 1 && visibleGroups[0].items.length === 0 && !visibleGroups[0].isCustom)) {
+        containerEl.innerHTML = `
+          <div class="state-box">
+            <p style="margin:0 0 12px;">এই বিভাগে কোনো মোনাজাত পাওয়া যায়নি। নতুন ক্যাটাগরি (যেমন: <b>রিজিক চেয়ে দোয়া</b>) তৈরি করে মোনাজাত যোগ করুন।</p>
+            <button class="btn btn-primary" onclick="openAddMunajatModal()">+ মোনাজাত যোগ করুন</button>
+          </div>
+        `;
         return;
       }
 
-      listEl.innerHTML = items.map((m, idx) => {
-        const sourceClass = `source-${escapeHtml(m.Source_Type || 'Personal')}`;
-        const meaningId = `meaning_${escapeHtml(m.Munajat_ID)}`;
+      const customGroupsOnly = visibleGroups.filter(g => g.isCustom);
+
+      containerEl.innerHTML = visibleGroups.map((group) => {
+        const isCollapsed = !!state.collapsedMunajatCats[group.Category_ID];
+        const customIdx = customGroupsOnly.findIndex(g => g.Category_ID === group.Category_ID);
+
+        const itemsHtml = group.items.length === 0
+          ? `<div class="state-box" style="padding:18px 14px; font-size:0.9rem;">
+               এই ক্যাটাগরিতে এখনো কোনো দোয়া যোগ করা হয়নি। উপরের <b>+ দোয়া</b> বাটন চাপুন।
+             </div>`
+          : group.items.map((m, idx) => {
+              const sourceClass = `source-${escapeHtml(m.Source_Type || 'Personal')}`;
+              const meaningId = `meaning_${escapeHtml(m.Munajat_ID)}`;
+
+              return `
+                <div class="item-card">
+                  <div class="item-header">
+                    <div class="item-title-wrap">
+                      <span class="order-num">${toBnNum(idx + 1)}</span>
+                      <h4 class="item-title">${escapeHtml(m.Title)}</h4>
+                      <span class="source-tag ${sourceClass}">${getSourceLabel(m.Source_Type)}</span>
+                    </div>
+
+                    ${m.Bangla_Meaning ? `
+                      <button class="meaning-toggle-btn" onclick="toggleMunajatMeaning('${meaningId}', this)">
+                        📖 বাংলা অর্থ
+                      </button>
+                    ` : ''}
+                  </div>
+
+                  ${m.Arabic_Text ? `<div class="arabic-text">${escapeHtml(m.Arabic_Text)}</div>` : ''}
+                  ${m.Pronunciation_BN ? `<div class="pronunciation-text">${escapeHtml(m.Pronunciation_BN)}</div>` : ''}
+
+                  ${m.Bangla_Meaning ? `
+                    <div id="${meaningId}" class="meaning-box hidden">
+                      <b>বাংলা অর্থ:</b> ${escapeHtml(m.Bangla_Meaning)}
+                    </div>
+                  ` : ''}
+
+                  ${state.munajatReorderMode && state.munajatFilter === 'ALL' ? `
+                    <div class="reorder-controls">
+                      <span style="font-size:0.82rem; color:var(--muted);">দোয়ার ক্রম:</span>
+                      <button class="btn btn-outline btn-sm" onclick="moveMunajatInGroup('${escapeHtml(group.Category_ID)}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ উপরে</button>
+                      <button class="btn btn-outline btn-sm" onclick="moveMunajatInGroup('${escapeHtml(group.Category_ID)}', ${idx}, 1)" ${idx === group.items.length - 1 ? 'disabled' : ''}>▼ নিচে</button>
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('');
 
         return `
-          <div class="item-card"
-               draggable="${state.munajatReorderMode}"
-               ondragstart="onDragStartMunajat(event, ${idx})"
-               ondragover="onDragOverItem(event)"
-               ondrop="onDropMunajat(event, ${idx})">
-            <div class="item-header">
-              <div class="item-title-wrap">
-                <span class="order-num">${toBnNum(idx + 1)}</span>
-                <h4 class="item-title">${escapeHtml(m.Title)}</h4>
-                <span class="source-tag ${sourceClass}">${getSourceLabel(m.Source_Type)}</span>
+          <div class="munajat-cat-group">
+            <div class="munajat-cat-header">
+              <div class="munajat-cat-title-area" onclick="toggleMunajatCatCollapse('${escapeHtml(group.Category_ID)}')">
+                <span style="font-size:1.1rem;">🤲</span>
+                <h3 class="munajat-cat-title">${escapeHtml(group.Category_Name)}</h3>
+                <span class="munajat-cat-count">${toBnNum(group.items.length)}টি দোয়া ${isCollapsed ? '▸' : '▾'}</span>
               </div>
 
-              ${m.Bangla_Meaning ? `
-                <button class="meaning-toggle-btn" onclick="toggleMunajatMeaning('${meaningId}', this)">
-                  📖 বাংলা অর্থ
-                </button>
-              ` : ''}
+              <div class="munajat-cat-actions">
+                <button class="btn btn-primary btn-sm" onclick="openAddMunajatModal('${escapeHtml(group.Category_ID)}')">+ দোয়া</button>
+                ${state.munajatReorderMode && group.isCustom ? `
+                  <button class="btn btn-outline btn-sm" onclick="moveMunajatCategory(${customIdx}, -1)" ${customIdx <= 0 ? 'disabled' : ''}>▲</button>
+                  <button class="btn btn-outline btn-sm" onclick="moveMunajatCategory(${customIdx}, 1)" ${customIdx === customGroupsOnly.length - 1 ? 'disabled' : ''}>▼</button>
+                ` : ''}
+                ${group.isCustom ? `
+                  <button class="btn btn-danger-soft btn-sm" onclick="deleteMunajatCategory('${escapeHtml(group.Category_ID)}', '${escapeHtml(group.Category_Name)}')" title="ক্যাটাগরি ডিলিট করুন">🗑</button>
+                ` : ''}
+              </div>
             </div>
 
-            ${m.Arabic_Text ? `<div class="arabic-text">${escapeHtml(m.Arabic_Text)}</div>` : ''}
-            ${m.Pronunciation_BN ? `<div class="pronunciation-text">${escapeHtml(m.Pronunciation_BN)}</div>` : ''}
-
-            ${m.Bangla_Meaning ? `
-              <div id="${meaningId}" class="meaning-box hidden">
-                <b>বাংলা অর্থ:</b> ${escapeHtml(m.Bangla_Meaning)}
-              </div>
-            ` : ''}
-
-            ${state.munajatReorderMode && state.munajatFilter === 'ALL' ? `
-              <div class="reorder-controls">
-                <span class="drag-handle">☰ টেনে সরান</span>
-                <button class="btn btn-outline btn-sm" onclick="moveMunajat(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ উপরে</button>
-                <button class="btn btn-outline btn-sm" onclick="moveMunajat(${idx}, 1)" ${idx === items.length - 1 ? 'disabled' : ''}>▼ নিচে</button>
-              </div>
-            ` : ''}
+            <div class="munajat-cat-items ${isCollapsed ? 'hidden' : ''}">
+              ${itemsHtml}
+            </div>
           </div>
         `;
       }).join('');
@@ -1861,59 +2369,66 @@
       renderMunajats();
     }
 
-    function applyNewMunajatOrder(sortedList) {
-      sortedList.forEach((item, index) => {
-        item.Sort_Order = index + 1;
-      });
-      state.munajat = sortedList;
+    function moveMunajatCategory(customIdx, direction) {
+      const sortedCats = [...state.munajatCategories].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+      const targetIdx = customIdx + direction;
+      if (targetIdx < 0 || targetIdx >= sortedCats.length) return;
+
+      const temp = sortedCats[customIdx];
+      sortedCats[customIdx] = sortedCats[targetIdx];
+      sortedCats[targetIdx] = temp;
+
+      sortedCats.forEach((c, i) => { c.Sort_Order = i + 1; });
+      state.munajatCategories = sortedCats;
       renderMunajats();
     }
 
-    function moveMunajat(index, direction) {
-      const list = getFilteredMunajats();
-      const targetIndex = index + direction;
-      if (targetIndex < 0 || targetIndex >= list.length) return;
+    function moveMunajatInGroup(catId, indexInGroup, direction) {
+      const sortedAll = [...state.munajat].sort((a, b) => Number(a.Sort_Order || 0) - Number(b.Sort_Order || 0));
+      const groupItems = sortedAll.filter(m => resolveMunajatCatId(m) === catId);
+      const targetIndex = indexInGroup + direction;
+      if (targetIndex < 0 || targetIndex >= groupItems.length) return;
 
-      const temp = list[index];
-      list[index] = list[targetIndex];
-      list[targetIndex] = temp;
-      applyNewMunajatOrder(list);
+      const itemA = groupItems[indexInGroup];
+      const itemB = groupItems[targetIndex];
+      const idxA = sortedAll.indexOf(itemA);
+      const idxB = sortedAll.indexOf(itemB);
+
+      sortedAll[idxA] = itemB;
+      sortedAll[idxB] = itemA;
+      sortedAll.forEach((m, i) => { m.Sort_Order = i + 1; });
+
+      state.munajat = sortedAll;
+      renderMunajats();
     }
 
     function shuffleMunajats() {
-      const list = getFilteredMunajats();
+      const list = [...state.munajat];
       for (let i = list.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [list[i], list[j]] = [list[j], list[i]];
       }
-      applyNewMunajatOrder(list);
+      list.forEach((item, index) => { item.Sort_Order = index + 1; });
+      state.munajat = list;
+      renderMunajats();
       showToast('মোনাজাতগুলো এলোমেলো করা হয়েছে — সেভ করুন');
     }
 
-    let draggedMunajatIdx = null;
-    function onDragStartMunajat(e, idx) { draggedMunajatIdx = idx; e.currentTarget.classList.add('dragging'); }
-    function onDropMunajat(e, dropIdx) {
-      e.preventDefault();
-      if (draggedMunajatIdx === null || draggedMunajatIdx === dropIdx) return;
-      const list = getFilteredMunajats();
-      const [moved] = list.splice(draggedMunajatIdx, 1);
-      list.splice(dropIdx, 0, moved);
-      draggedMunajatIdx = null;
-      applyNewMunajatOrder(list);
-    }
-
     async function saveMunajatOrderToSheet() {
-      const list = getFilteredMunajats();
-      const orders = list.map((m, idx) => ({
+      const orders = state.munajat.map((m, idx) => ({
         Munajat_ID: m.Munajat_ID,
-        Sort_Order: idx + 1
+        Sort_Order: Number(m.Sort_Order || idx + 1)
+      }));
+      const categoryOrders = state.munajatCategories.map((c, idx) => ({
+        Category_ID: c.Category_ID,
+        Sort_Order: Number(c.Sort_Order || idx + 1)
       }));
 
       saveLocalCache();
       showToast('মোনাজাতের ক্রম সেভ হচ্ছে...');
 
       try {
-        const res = await postToGAS({ action: 'saveMunajatOrder', orders });
+        const res = await postToGAS({ action: 'saveMunajatOrder', orders, categoryOrders });
         if (res.status === 'success') {
           state.munajatReorderMode = false;
           document.getElementById('munajatReorderBar').classList.add('hidden');
